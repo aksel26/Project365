@@ -8,7 +8,6 @@ import axios from "axios";
 import "react-datepicker/dist/react-datepicker.css";
 import Calender from "../util/Calender";
 import ListAnswerComponent from "./ListAnswerComponent";
-import { unstable_batchedUpdates } from "react-dom";
 import { Alert } from "../util/alert_modal/alert";
 
 function List() {
@@ -84,9 +83,9 @@ function List() {
       setQuestionData(questions.data);
     } catch (error) {
       console.log("error: ", error);
-      history.push("/error")
+      history.push("/error");
     }
-  }, [member_num, date]);
+  }, [member_num, date, answerAllData]);
 
   const filterAnswer = (answerAllData, questionData) => {
     setDataYear(answerAllData.map((item) => item.answer_year));
@@ -109,11 +108,8 @@ function List() {
   function goTrash() {
     setDataAnswer(dataAnswer.filter((answer, index) => index !== deleteIndex)); //실제에서는 .then안에
 
-    axios({
-      url: `/answers/trashes`,
-      method: "PATCH",
-      baseURL: process.env.REACT_APP_SERVER_IP,
-      data: {
+    try {
+      axios.patch(`${process.env.REACT_APP_SERVER_IP}/answers/trashes`, {
         answer_num: answerAllData[deleteIndex].answer_num,
         answer_delete: answerAllData[deleteIndex].answer_delete, //삭제이기때문에 항상 y로
         delete_date: new Date(+new Date() + 3240 * 10000)
@@ -121,22 +117,18 @@ function List() {
           .split("T")[0], //오늘날짜로, date타입
         member_num: member,
         question_num: answerAllData[deleteIndex].question_num,
-      },
-    })
-      .then((response, request) => {
-        if (response.status === 200)
-          // alert("삭제 성공!");
-          setIsDelete(true);
-        setDeletes(false);
-        setAnswerAllData(
-          answerAllData.filter((data, index) => index !== deleteIndex)
-        );
-        getQnA();
-      })
-      .catch((error) => {
-        console.log(error);
-        history.push("/error")
       });
+
+      setIsDelete(true);
+      setDeletes(false);
+      setAnswerAllData(
+        answerAllData.filter((data, index) => index !== deleteIndex)
+      );
+      getQnA();
+    } catch (error) {
+      console.log(error);
+      history.push("/error");
+    }
   }
 
   function patchPublic(pa, index) {
@@ -159,7 +151,7 @@ function List() {
       })
       .catch((error) => {
         console.log(error);
-        history.push("/error")
+        history.push("/error");
       });
   }
 

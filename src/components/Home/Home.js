@@ -26,18 +26,19 @@ function Home(props) {
   const [loginAlert, setLoginAlert] = useState(false);
   const [confirmModalOn, setConfirmModalOn] = useState(false);
   const [alertTrash, setAlertTrash] = useState(false);
-  // const [num, setNum] = useState(0);
-  var now = new Date();
-  var start = new Date(now.getFullYear(), 0, 0);
-  var diff = now - start;
-  var oneDay = 1000 * 60 * 60 * 24;
-  var day = Math.floor(diff / oneDay);
-  // const member_num = sessionStorage.getItem("member_num");
+
+  let now = new Date();
+  let start = new Date(now.getFullYear(), 0, 0);
+  let diff = now - start;
+  let oneDay = 1000 * 60 * 60 * 24;
+  let day = Math.floor(diff / oneDay);
+
   const history = useHistory();
   const [todayNum, setTodayNum] = useState(day);
   const [memberNum, setmemberNum] = useState(
     sessionStorage.getItem("member_num") || null
   );
+
   let num = 0;
 
   const handleClick = () => {
@@ -110,7 +111,7 @@ function Home(props) {
       }
     } catch (error) {
       console.log("error: ", error);
-      history.push("/error")
+      history.push("/error");
     }
   };
 

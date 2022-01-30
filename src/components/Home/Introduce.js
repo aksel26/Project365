@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import "../../styles/Introduce.css";
 import Introduce_top from "../../styles/images/07.png";
 import ballon from "../../styles/images/Group 5582.png";
@@ -10,7 +10,6 @@ import soga02 from "../../styles/images/soga02.png";
 import soga03 from "../../styles/images/soga03.png";
 import soga04 from "../../styles/images/soga04.png";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
 
 function Introduce() {
   const slideData = [

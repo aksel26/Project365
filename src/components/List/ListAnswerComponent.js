@@ -48,7 +48,7 @@ export default function List_answer({
       setAnswersFromTrash(res.data);
     } catch (error) {
       console.log("error: ", error);
-      history.push("/error")
+      history.push("/error");
     }
   };
 
@@ -152,7 +152,7 @@ export default function List_answer({
       targetDate === nowDate ? (
         <TodayWrite todayAnswersInTrash={todayAnswersInTrash} />
       ) : (
-        <div>당일만 작성 가능</div>
+        <div>해당 날짜에 작성된 답변이 없습니다</div>
       )}
 
       {alertTrash ? <AlertTrash isClose={setAlertTrash} /> : null}
