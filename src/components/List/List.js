@@ -85,7 +85,7 @@ function List() {
       console.log("error: ", error);
       history.push("/error");
     }
-  }, [member_num, date, answerAllData]);
+  }, [member_num, date, history]);
 
   const filterAnswer = (answerAllData, questionData) => {
     setDataYear(answerAllData.map((item) => item.answer_year));
