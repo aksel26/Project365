@@ -9,19 +9,21 @@ import girl from "../../styles/images/Mask Group.png";
 import "../../styles/List.css";
 import axios from "axios";
 import AlertTrash from "../util/alert_modal/AlertTrash";
+import ListNoAnswer from "./ListNoAnswer";
 
-export default function List_answer({
+export default function ListAnswer({
   question,
   showDelete,
   answerAllData,
   stateOpen,
   stateClose,
   public_answer,
-  date,
   month,
-  dataYear,
   selectedYear,
   member_num,
+  day31,
+  setQuestion,
+  calender,
 }) {
   const dt = new Date();
   var nowDate =
@@ -32,7 +34,9 @@ export default function List_answer({
   const history = useHistory();
   const monthToString = month + "";
   const targetDate =
-    selectedYear.toString() + monthToString.padStart(2, "0") + date;
+    selectedYear.toString() +
+    monthToString.padStart(2, "0") +
+    day31.getDate().toString().padStart(2, "0");
 
   const [answersFromTrash, setAnswersFromTrash] = useState([]);
   const [isInTrash, setIsInTrash] = useState(false);
@@ -151,9 +155,9 @@ export default function List_answer({
       ) : // <TodayWrite />
       targetDate === nowDate ? (
         <TodayWrite todayAnswersInTrash={todayAnswersInTrash} />
-      ) : (
-        <div>해당 날짜에 작성된 답변이 없습니다</div>
-      )}
+      ) : !calender ? (
+        <ListNoAnswer setQuestion={setQuestion} />
+      ) : null}
 
       {alertTrash ? <AlertTrash isClose={setAlertTrash} /> : null}
     </div>

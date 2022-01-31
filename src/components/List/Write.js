@@ -9,6 +9,7 @@ import { Alert } from "../util/alert_modal/alert";
 import axios, { Axios } from "axios";
 
 import "../../styles/Write.css";
+import Day365 from "../util/Day365";
 
 function Write() {
   const history = useHistory();
@@ -28,11 +29,7 @@ function Write() {
   const [content, setContent] = useState("");
   const [sucessWrite, setSucessWrite] = useState(false);
 
-  const now = new Date();
-  const start = new Date(now.getFullYear(), 0, 0);
-  const diff = now - start;
-  const oneDay = 1000 * 60 * 60 * 24;
-  const day = Math.floor(diff / oneDay);
+  const day = Day365();
 
   function writeSubmit(e) {
     e.preventDefault();
@@ -58,7 +55,7 @@ function Write() {
       })
       .catch(function (error) {
         console.log(error);
-        history.push("/error")
+        history.push("/error");
       });
   }
 
@@ -92,7 +89,7 @@ function Write() {
       })
       .catch(function (error) {
         console.log(error);
-        history.push("/error")
+        history.push("/error");
       });
   }, [day]);
 

@@ -430,3 +430,30 @@ color:#98999C
   background-color: black;
   opacity: 0.3;
 }
+.List .List .noAnswer{
+  margin: auto;
+  width:70%
+}
+
+.List .List .noAnswer hr{
+  background-color: #084861;
+    border: 1.5px solid;
+    opacity: 0.1;
+    margin-bottom: 40px;
+}
+.List .List .noAnswer .noAnswerImg{
+  
+  width: 198px;
+  height: 193px;
+  display: block;
+
+  margin: auto;
+}
+
+.List .List .noAnswer .noAnswerText{
+  color: #084861;
+  font-size: 18.75px;
+  text-align: center;
+  line-height: 209.7%;
+  margin-top: 36px;
+}

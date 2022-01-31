@@ -4,6 +4,7 @@ import xxxxx from "../../styles/images/xxxxx.png";
 import { useState } from "react";
 import axios from "axios";
 import AlertCalender from "../util/alert_modal/AlertCalender";
+import Day365 from "./Day365";
 
 export default function Calender(props) {
   const [startDate, setStartDate] = useState(new Date());
@@ -20,22 +21,19 @@ export default function Calender(props) {
   const [clickFag, setClickFag] = useState(false);
 
   const handleChange = (date, e) => {
-    const now = date;
-    const start = new Date(now.getFullYear(), 0, 0);
-    const diff = now - start;
-    const oneDay = 1000 * 60 * 60 * 24;
-    const day = Math.floor(diff / oneDay);
-    setSelectedDate(day);
+    const day365 = Day365(date);
+    setSelectedDate(day365);
     setStartDate(date);
-    getAnswers(day);
+    getAnswers(day365);
+    props.setDay31(date);
     setClickFag(true);
   };
 
   const getAnswers = useCallback(
-    async (day) => {
+    async (day365) => {
       try {
         const responseAnswer = await axios.get(
-          `${process.env.REACT_APP_SERVER_IP}/answers/${day}/${member_num}`
+          `${process.env.REACT_APP_SERVER_IP}/answers/${day365}/${member_num}`
         );
         setAnswers(responseAnswer.data);
       } catch (error) {

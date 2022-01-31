@@ -7,8 +7,9 @@ import xxxxx from "../../styles/images/xxxxx.png";
 import axios from "axios";
 import "react-datepicker/dist/react-datepicker.css";
 import Calender from "../util/Calender";
-import ListAnswerComponent from "./ListAnswerComponent";
+import ListAnswer from "./ListAnswer";
 import { Alert } from "../util/alert_modal/alert";
+import Day365 from "../util/Day365";
 
 function List() {
   const location = useLocation();
@@ -34,18 +35,14 @@ function List() {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [isDelete, setIsDelete] = useState(false);
   const [questionData, setQuestionData] = useState([]);
-
+  const [day31, setDay31] = useState(new Date());
   const deleteModalContainer = useRef();
-
-  let now = new Date();
-  let start = new Date(now.getFullYear(), 0, 0);
-  let diff = now - start;
-  let oneDay = 1000 * 60 * 60 * 24;
-  let day = Math.floor(diff / oneDay);
   const member_num = sessionStorage.getItem("member_num");
 
+  let day365 = Day365();
+
   const [answerDate, setAnswerDate] = useState(
-    location.state === undefined ? day : Number(location.state.id)
+    location.state === undefined ? day365 : Number(location.state.id)
   );
 
   const [month, setMonth] = useState(
@@ -54,9 +51,7 @@ function List() {
       : location.state.targetMonth
   );
   const [date, setDate] = useState(
-    location.state === undefined
-      ? new Date().getDate()
-      : location.state.targetDate
+    location.state === undefined ? day365 : location.state.targetDate
   );
   function showDelete(index) {
     setDeletes(true);
@@ -99,7 +94,7 @@ function List() {
 
   useEffect(() => {
     getQnA();
-  }, [date, getQnA]);
+  }, [getQnA]);
 
   useEffect(() => {
     filterAnswer(answerAllData, questionData);
@@ -120,11 +115,11 @@ function List() {
       });
 
       setIsDelete(true);
+
       setDeletes(false);
       setAnswerAllData(
         answerAllData.filter((data, index) => index !== deleteIndex)
       );
-      getQnA();
     } catch (error) {
       console.log(error);
       history.push("/error");
@@ -176,7 +171,7 @@ function List() {
       <div className="questions">
         <div>
           <p>
-            {month}월 {date}일
+            {month}월 {day31.getDate()}일
           </p>
           <p>{question}</p>
         </div>
@@ -190,7 +185,7 @@ function List() {
 
       {/* 이것은 당일에 해당하는 답변이 없을 떄만 보여주어야 합니다 */}
 
-      <ListAnswerComponent
+      <ListAnswer
         showDelete={showDelete}
         dataAnswer={dataAnswer}
         dataYear={dataYear}
@@ -201,11 +196,14 @@ function List() {
         stateOpen={stateOpen}
         stateClose={stateClose}
         public_answer={public_answer}
-        day={day}
+        day365={day365}
         date={date}
         month={month}
         selectedYear={selectedYear}
         member_num={member_num}
+        day31={day31}
+        setQuestion={setQuestion}
+        calender={calender}
       />
 
       {deletes ? (
@@ -233,6 +231,7 @@ function List() {
           setDate={setDate}
           date={date}
           setSelectedYear={setSelectedYear}
+          setDay31={setDay31}
         />
       ) : null}
     </div>
