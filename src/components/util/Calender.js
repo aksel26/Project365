@@ -26,6 +26,7 @@ export default function Calender(props) {
     setStartDate(date);
     getAnswers(day365);
     props.setDay31(date);
+    props.setMonth(date.getMonth() + 1);
     setClickFag(true);
   };
 

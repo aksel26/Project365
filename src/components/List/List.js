@@ -80,7 +80,7 @@ function List() {
       console.log("error: ", error);
       history.push("/error");
     }
-  }, [member_num, date, history]);
+  }, [member_num, date, history, day31]);
 
   const filterAnswer = (answerAllData, questionData) => {
     setDataYear(answerAllData.map((item) => item.answer_year));
@@ -210,6 +210,7 @@ function List() {
         <div className="deleteModal" ref={deleteModalContainer}>
           <img onClick={xDelete} src={xxxxx}></img>
           <p>답변을 정말 삭제하시겠어요?</p>
+          <p>일기를 모두 삭제한 후엔 더 이상 질문을 확인할 수 없습니다.</p>
           <p>삭제된 답변은 휴지통에 일주일 동안 보관됩니다</p>
           <section>
             <p onClick={goTrash}>삭제하기</p>

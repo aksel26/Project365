@@ -182,14 +182,14 @@
 
   color: #084861;
   margin: 0 auto;
+  padding-bottom: 22px;
 }
 
-.deleteModal > p:nth-child(3) {
+.deleteModal > p:nth-child(3),.deleteModal > p:nth-child(4) {
   font-family: Spoqa Han Sans Neo;
   font-style: normal;
   font-weight: normal;
   font-size: 20px;
-  line-height: 209.7%;
   /* or 42px */
 
   text-align: center;
@@ -198,13 +198,19 @@
 
   color: #98999c;
 }
+.deleteModal > p:nth-child(4) {
+margin-top: 0px;
+
+}
+
 
 .deleteModal > section {
   display: flex;
   height: 20%;
   align-self: center;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 33px;
+
 }
 
 .deleteModal > section > p,.deleteModal > section > a {
@@ -456,4 +462,6 @@ color:#98999C
   text-align: center;
   line-height: 209.7%;
   margin-top: 36px;
+  width: auto;
+height: 66px;
 }
