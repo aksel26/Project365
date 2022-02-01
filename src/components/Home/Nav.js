@@ -4,18 +4,19 @@ import "../../styles/Nav.css";
 import { LoginAlert } from "../util/alert_modal/loginAlert";
 
 function Nav(props) {
+  const [loginAlert, setLoginAlert] = useState(false);
+  const history = useHistory();
   const location = useLocation();
 
   location.isLogged = (sessionStorage.getItem("nickname") && true) || false;
   location.onClicked = false;
 
   const NavCssflag = location.pathname.split("/");
-  const cssFlag = NavCssflag[NavCssflag.length - 1];
-  const [loginAlert, setLoginAlert] = useState(false);
-  const history = useHistory();
-  console.log("history: ", history);
+
+  let cssFlag = NavCssflag[NavCssflag.length - 1];
+  if (cssFlag === "365") cssFlag = "home";
+
   const handleClick = (e) => {
-    console.log("e: ", e);
     const route = e.target.className;
     if (!location.isLogged && "/" + route !== location.pathname) {
       setLoginAlert(true);
@@ -31,7 +32,9 @@ function Nav(props) {
   return (
     <div className={props.isMobile ? "Nav_mobile" : `Nav ${cssFlag}`}>
       <Link to="/365">
-        <p id="logo">365</p>
+        <p className={location.pathname === "/365" ? "home" : ""} id="logo">
+          365
+        </p>
       </Link>
       <div id="nav_btn">
         <Link to="/introduce">
