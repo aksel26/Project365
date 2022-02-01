@@ -14,7 +14,8 @@ function Nav(props) {
   const NavCssflag = location.pathname.split("/");
 
   let cssFlag = NavCssflag[NavCssflag.length - 1];
-  if (cssFlag === "365") cssFlag = "home";
+  console.log("cssFlag: ", cssFlag);
+  if (cssFlag === "365" || cssFlag === "") cssFlag = "home";
 
   const handleClick = (e) => {
     const route = e.target.className;
